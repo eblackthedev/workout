@@ -1,3 +1,4 @@
+require("dotenv").config();
 const Express = require("express");
 const app = Express();
 const dbConnection = require("./db");
@@ -6,6 +7,11 @@ app.use(Express.json());
 
 const controllers = require("./controllers");
 
+app.use(Express.json());
+
+app.use("/user", controllers.userController);
+
+app.use(require("./middleware/validate-jwt"));
 app.use("/log", controllers.logController);
 
 dbConnection
